@@ -12,14 +12,15 @@ connection.once('open', () => {
     console.log('callback called!!!');
 });
 
-let Product = new mongoose.Schema({
+let ProductSchema = new mongoose.Schema({
     id: { type: Number, unique: true },
     product: String,
     images: Array
 });
 
+
 // compile schema into a model (class with which we construct documents)
-let productModel = mongoose.model('Product', Product);
+let productModel = mongoose.model('productModel', ProductSchema, 'Products');
 
 const getAllProducts = () => {
     return new Promise((resolve, reject) => {

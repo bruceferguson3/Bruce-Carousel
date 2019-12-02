@@ -15,6 +15,7 @@ app.get("/test", (req, res) => {
     }).catch((error) => {
         console.log("ERROR in CATCH of app.get", error);
     })
+    // ! Need to figure out why result is undefined!
 	res.send("hit test route", result);
 });
 
