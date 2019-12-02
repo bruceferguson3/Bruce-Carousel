@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const config = require('./config');
+const Product 
 mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
 
 const db = mongoose.connection;
