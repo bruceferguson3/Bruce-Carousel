@@ -1,12 +1,21 @@
 const express = require("express");
-const path = require("path");
 const app = express();
+const path = require("path");
+const cors = require('cors')
+const db = require('../db/db');
 
+app.use(express.static(path.join(__dirname, "../client/dist")));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "./client/dist")));
+app.use(cors());
 
 app.get("/test", (req, res) => {
-	res.send("hit route test");
+    db.getAllProducts()
+    .then((result) => {
+        return result;
+    }).catch((error) => {
+        console.log("ERROR in CATCH of app.get", error);
+    })
+	res.send("hit test route", result);
 });
 
 const port = 4000;

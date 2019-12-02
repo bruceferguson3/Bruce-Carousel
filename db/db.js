@@ -2,33 +2,35 @@ const mongodb = require('mongodb');
 const mongoose = require('mongoose');
 const connectionString = require('./config');
 const uri = connectionString.connectionString;
-const Product = require('./models/Product');
+// const Product = require('./models/Product');
 
 mongoose.connect(`${uri}`, {useNewUrlParser: true});
 
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-    console.log('Connected!');
+let connection = mongoose.connection;
+connection.on('error', console.error.bind(console, 'connection error:'));
+connection.once('open', () => {
+    console.log('callback called!!!');
 });
 
-// ! MongoDB Mongoose tutorial
+let Product = new mongoose.Schema({
+    id: { type: Number, unique: true },
+    product: String,
+    images: Array
+});
+
 // compile schema into a model (class with which we construct documents)
+let productModel = mongoose.model('Product', Product);
 
-let ProductModel = mongoose.model('Product', Product);
-console.log(Product);
+const getAllProducts = () => {
+    return new Promise((resolve, reject) => {
+        productModel.find({}, (error, result) => {
+            if (error) {
+                reject("ERROR IN getAllProducts!", error);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
 
-// can add a method
-// methods must be added to schema before compiling with mongoose.model()
-// gammazonSchema.methods.retrieve = () => {}
-
-// waterBottle.save((err, waterBottle) => {
-//     if (err) {
-//         return console.error(err);
-//     } else {
-//         waterBottle;
-//     }
-// });
-
-// to retrieve data from the db
-// Kitten.find({ name: /^fluff/ }, callback);
+module.exports = {getAllProducts};
