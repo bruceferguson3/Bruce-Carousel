@@ -7,8 +7,8 @@ class App extends React.Component {
 		this.state = {};
 	}
 	render() {
-		return <div>Hello World</div>;
+		return <div>Hello World</div>
 	}
-}
+};
 
 export default App;

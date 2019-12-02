@@ -1,9 +1,9 @@
-const Product = requrie('mongoose');
+const mongoose = require('mongoose');
 
 db.once('open', () => {
     let gammazonSchema = new mongoose.Schema({
         id: {type: Number, unique: true},
         product: String,
-        image: String
+        images: String
     });
 });
