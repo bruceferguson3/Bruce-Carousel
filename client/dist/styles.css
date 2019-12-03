@@ -1,0 +1,15 @@
+.carousel-img {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 200px;
+    padding: 5px;
+    flex-direction: row;
+    align-items: flex-start;
+    /* overflow: hidden;
+    flex-flow: row;
+    align-content: space-between;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px; */
+}

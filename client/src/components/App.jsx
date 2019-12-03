@@ -5,7 +5,10 @@ import Images from "./Images.jsx";
 class App extends React.Component {
 	constructor() {
 		super();
-		this.state = {};
+		this.state = {
+            currentProduct: 1,
+            recommended: [2, 3, 4, 5, 6]
+        };
     }
     
     componentDidMount() {}
@@ -14,7 +17,7 @@ class App extends React.Component {
 		return( 
             <div>
                 Hello World
-                <Images />
+                <Images currentProduct={this.state.currentProduct} recommended={this.state.recommended} />
             </div>
         );
 	}

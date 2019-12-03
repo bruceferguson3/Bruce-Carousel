@@ -9,14 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/test", (req, res) => {
-    db.getAllProducts()
-    .then((result) => {
-        return result;
-    }).catch((error) => {
-        console.log("ERROR in CATCH of app.get", error);
-    })
-    // ! Need to figure out why result is undefined!
-	res.send("hit test route", result);
+    res.send("hit route TEST");
 });
 
 const port = 4000;
