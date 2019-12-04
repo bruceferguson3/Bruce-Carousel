@@ -1,16 +1,19 @@
 import React from 'react';
+import Image from './Image.jsx';
 
 const Images = (props) => {
     let array = [];
-    for (let i = 0; i < props.recommended.length; i++) {
-        array.push(`https://fecproductimages.s3.us-east-2.amazonaws.com/${props.recommended[i]}-1.jpg`);
+    // push img url into array
+    for (let i = 0; i < 5; i++) {
+        array.push(`https://fecproductimages.s3.us-east-2.amazonaws.com/${props.recommendedID[i]}-1.jpg`);
     }
-    console.log(array);
     return (
-        <div className='carousel-frame'>
+        <div className='images'>
             {array.map((image, index) => {
-                return <img src={image} key={index} className="carousel-img"></img>
-            })}
+                return (
+                    <Image image={image} index={index} clickImage={props.clickImage} recommendedID={props.recommendedID} />
+                )}
+            )}
         </div>    
     );
 }
