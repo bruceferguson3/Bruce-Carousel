@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Images from "./Images.jsx";
+import Buttons from "./Buttons.jsx";
 
 class App extends React.Component {
 	constructor() {
@@ -17,6 +18,7 @@ class App extends React.Component {
 		return( 
             <div>
                 Hello World
+                <Buttons />
                 <Images currentProduct={this.state.currentProduct} recommended={this.state.recommended} />
             </div>
         );

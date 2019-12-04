@@ -7,7 +7,7 @@ const Images = (props) => {
     }
     console.log(array);
     return (
-        <div>
+        <div className='carousel-frame'>
             {array.map((image, index) => {
                 return <img src={image} key={index} className="carousel-img"></img>
             })}
