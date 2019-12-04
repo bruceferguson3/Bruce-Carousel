@@ -1,7 +1,12 @@
 import React from 'react';
 
 const Price = (props) => {
-    return <div className='price' key={props.index}>{props.price}</div>;
+    console.log(props.price);
+    return <div>
+        <span className='price' key={props.index}>
+            {"$" + props.price}
+        </span>
+        </div>;
 }
 
 export default Price;

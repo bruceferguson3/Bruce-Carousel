@@ -3,7 +3,7 @@ import Price from "./Price.jsx";
 
 const Image = (props) => {
     return (
-        <div>
+        <div className="image-frame">
             <img src={props.image} key={props.index} className="image" onClick={props.clickImage} ></img>
         </div>
     )
