@@ -30,12 +30,12 @@ class App extends React.Component {
         console.log("click-right!");
     }
 
-    clickImage() {
-        console.log(`clicked image!`);
+    clickImage(event) {
+        console.log(event.target.id);
     }
 
     findRecommended() {
-        // determine which products to show on recommended
+        console.log("hi");
     }
 
 	render() {
