@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import Images from "./Images.jsx";
-import Buttons from "./Buttons.jsx";
+import ButtonLeft from "./ButtonLeft.jsx";
+import ButtonRight from "./ButtonRight.jsx";
 import Prices from "./Prices.jsx";
 // import Price from "./Price.jsx";
 
@@ -39,11 +40,14 @@ class App extends React.Component {
 
 	render() {
 		return( 
-            <div className='frame'>
+            <div>
                 <h1 className='header'>Customers who bought this item also bought</h1>
-                <Buttons clickLeft={this.clickLeft} clickRight={this.clickRight} />
-                <Images currentProduct={this.state.currentProduct} recommendedID={this.state.recommendedID} recommendedNames={this.state.recommendedNames} clickImage={this.clickImage} />
-                <Prices recommendedID={this.state.recommendedID} recommendedPrices={this.state.recommendedPrices} />
+                <div className='frame'>
+                    <ButtonLeft clickLeft={this.clickLeft} />
+                    <Images currentProduct={this.state.currentProduct} recommendedID={this.state.recommendedID} recommendedNames={this.state.recommendedNames} clickImage={this.clickImage} />
+                    <Prices recommendedID={this.state.recommendedID} recommendedPrices={this.state.recommendedPrices} />
+                    <ButtonRight clickRight={this.clickRight} />    
+                </div>
             </div>
         );
 	}
