@@ -35,6 +35,12 @@
     text-align: center;
 }
 
+.prices {
+    display: flex;
+    justify-content: space-around;
+    font-family: "Amazon-Ember";
+}
+
 /* #buttonLeft {
     display: flex;
     flex-direction: row;

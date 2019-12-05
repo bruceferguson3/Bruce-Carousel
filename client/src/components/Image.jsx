@@ -1,5 +1,5 @@
 import React from 'react';
-import Price from "./Price.jsx";
+import Prices from "./Price.jsx";
 
 const Image = (props) => {
     return (

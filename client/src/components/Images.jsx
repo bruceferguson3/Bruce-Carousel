@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from './Image.jsx';
+import Prices from './Prices.jsx';
 
 
 const Images = (props) => {
@@ -14,8 +15,10 @@ const Images = (props) => {
             {array.map((image, index) => {
                 return (
                     <Image image={image} index={index} clickImage={props.clickImage} recommendedProductID={props.recommendedID[index]} />
-                )}
-            )}
+                    )}
+                    )}
+            {/* Add reviews/ratings component here */}
+            <Prices recommendedID={props.recommendedID} recommendedPrices={props.recommendedPrices} />
         </div>    
     );
 }

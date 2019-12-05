@@ -1,4 +1,4 @@
-const mongodb = require('mongodb');
+// const mongodb = require('mongodb');
 const mongoose = require('mongoose');
 const connectionString = require('./config');
 const uri = connectionString.connectionString;

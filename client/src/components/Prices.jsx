@@ -3,10 +3,12 @@ import Price from './Price.jsx';
 
 const Prices = (props) => {
     return (
-        <div className="prices">
-            {props.recommendedPrices.map((price, index) => {
-                <Price price={price} index={index} /> 
-            })}
+        <div>
+            <div className="prices">
+                {props.recommendedPrices.map((price, index) => {
+                    return <Price price={price} index={index} />
+                })}
+            </div>
         </div>
     );
 }

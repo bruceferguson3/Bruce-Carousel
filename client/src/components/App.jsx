@@ -100,13 +100,13 @@ class App extends React.Component {
                 }
             }
         }
-
         this.setState({
             recommendedID: newList
         });
-
-        console.log(this.state.recommendedID);
+        return this.state.newList;
     }
+
+
 
     findRecommendedRight() {
         let newList = [];
@@ -135,8 +135,6 @@ class App extends React.Component {
         this.setState({
             recommendedID: newList
         });
-
-        console.log(this.state.recommendedID);
     }
     
     // if left button is clicked, find 5 ids on the left of the very first id on the current list
@@ -150,10 +148,10 @@ class App extends React.Component {
                 <h1 className='header'>Customers who bought this item also bought</h1>
                 <div className='frame'>
                     <ButtonLeft clickLeft={this.clickLeft} />
-                    <Images currentProduct={this.state.currentProduct} recommendedID={this.state.recommendedID} recommendedNames={this.state.recommendedNames} clickImage={this.clickImage} />
-                    <Prices recommendedID={this.state.recommendedID} recommendedPrices={this.state.recommendedPrices} />
+                    <Images currentProduct={this.state.currentProduct} recommendedID={this.state.recommendedID} recommendedNames={this.state.recommendedNames} clickImage={this.clickImage} recommendedID={this.state.recommendedID} recommendedPrices={this.state.recommendedPrices} />
                     <ButtonRight clickRight={this.clickRight} />    
                 </div>
+                {/* <Prices recommendedID={this.state.recommendedID} recommendedPrices={this.state.recommendedPrices} /> */}
             </div>
         );
 	}
