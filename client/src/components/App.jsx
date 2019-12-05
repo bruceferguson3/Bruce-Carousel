@@ -3,18 +3,16 @@ import axios from "axios";
 import Images from "./Images.jsx";
 import ButtonLeft from "./ButtonLeft.jsx";
 import ButtonRight from "./ButtonRight.jsx";
-import Prices from "./Prices.jsx";
-// import Price from "./Price.jsx";
+import Helper from "./Helper.jsx";
 
 class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-            currentProduct: 1,
+            currentProduct: 55,
             recommendedID: [],
-            recommendedPrices: [129.95, 14.99, 7.08, 16.82, 12.26],
+            recommendedPrices: [],
             recommendedNames: [],
-            count: 0,
             allIDs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
         };
         this.clickLeft = this.clickLeft.bind(this);
@@ -42,10 +40,11 @@ class App extends React.Component {
         console.log(event.target.id);
     }
 
+    // determines 5 recommended product IDs
     recommended() {
         let newList = [];
         let start = this.state.currentProduct;
-        if (start < 5) {
+        if (start < 6) {
             for (let i = 1; i < 101; i++) {
                 if (i !== start) {
                     newList.push(i);
@@ -58,78 +57,115 @@ class App extends React.Component {
             for (let i = start + 1; i < 101; i++) {
                 newList.push(i);
             }
-            let length = newList.length;
-            for (let j = 1; j <= (5 - length); j++) {
+            for (let j = 1; newList.length < 5; j++) {
                 newList.push(j);
             }
         } else {
-            for (let i = start + 1; i < this.state.allIDs.length; i++) {
-                newList.push(i);
-                if (newList.length === 5) {
-                    break;
-                }
+            for (let k = start + 1; newList.length < 5; k++) {
+                newList.push(k);
             }
         }
-
+        console.log("initial recommendation", newList);
         this.setState({
             recommendedID: newList
         });
     }
 
+    // retrieves data of recommended items from database
+    getRecommendedData() {
+        axios.get("/data", {
+            recommendedID: this.state.recommendedID
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            // throw error when finaizing product
+            console.log(error);
+        });
+    }
+
+        // determines previous 5 recommended product IDs from current product
     findRecommendedLeft() {
+        let currentProduct = this.state.currentProduct;
         let newList = [];
         let start = this.state.recommendedID[0];
-        // 3 -> [100, 1, 2, 3, 4]
         if (start < 6) {
             for (let i = 1; i < start; i++) {
-                if (i !== this.state.currentProduct) {
+                if (i !== currentProduct) {
                     newList.push(i);
                 }
-                let length = newList.length;
-                // ! need to use unshift!
-                for (let j = 101 - start; j <= 100; j++) {
-                    if (j !== this.state.currentProduct) {
+            }
+            let length = newList.length;
+            if (length < 5) {
+                for (let j = 100; j >= 100 - (5 - length); j--) {
+                    if (j !== currentProduct) {
                         newList.unshift(j);
                     }
                 }
             }
-        } else {
-            for (let k = (start - 5); k < start; k++) {
-                if (k !== this.state.currentProduct) {
-                    newList.push(k);
-                }
-            }
-        }
-        this.setState({
-            recommendedID: newList
-        });
-        return this.state.newList;
-    }
-
-
-
-    findRecommendedRight() {
-        let newList = [];
-        let start = this.state.recommendedID[0];
-        let end = this.state.recommendedID[4];
-        if (end > 96) {
-            for (let i = end + 1; i < 101; i++) {
-                if (i !== this.state.currentProduct) {
+            console.log("L-checkpoint1", newList);
+        } else if (start > 95) {
+            for (let i = start - 5; i < start; i++) {
+                if (i !== currentProduct) {
                     newList.push(i);
                 }
             }
             let length = newList.length;
-            for (let j = 1; j <= (5 - length); j++) {
-                if (j !== this.state.currentProduct) {
+            if (length < 5) {
+                for (let j = start - (5 + (5 - length)); newList.length < 5; j++) {
+                    if (j !== currentProduct) {
+                        newList.unshift(j);
+                    }
+                }
+            }
+            console.log("L-checkpoint2", newList);
+        } else {
+            // console.log("ran", newList);
+            for (let k = start - 1; k >= start - 5; k--) {
+                if (k !== currentProduct) {
+                    newList.unshift(k);
+                }
+            }
+            let length = newList.length;
+            for (let m = start - 6; newList.length < 5; m--) {
+                if (m !== currentProduct) {
+                    newList.unshift(m);
+                }
+            }
+            console.log("L-checkpoint3", newList);
+        }
+        this.setState({
+            recommendedID: newList
+        });
+    }
+
+    // determines next 5 recommended product IDs from current product
+    findRecommendedRight() {
+        let currentProduct = this.state.currentProduct;
+        let newList = [];
+        let start = this.state.recommendedID[0];
+        let end = this.state.recommendedID[4];
+        if (end > 95) {
+            for (let i = end + 1; i < 101; i++) {
+                if (i !== currentProduct) {
+                    newList.push(i);
+                }
+            }
+            let length = newList.length;
+            for (let j = 1; newList.length < 5; j++) {
+                if (j !== currentProduct) {
                     newList.push(j);
                 }
             }
+            console.log("R-checkpoint1", newList);
         } else {
-            for (let k = (end + 1); k < (end + 6); k++) {
-                if (k !== this.state.currentProduct) {
+            for (let k = (end + 1); newList.length < 5; k++) {
+                if (k !== currentProduct) {
                     newList.push(k);
                 }
             }
+            console.log("R-checkpoint2", newList);
         }
 
         this.setState({
