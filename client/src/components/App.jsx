@@ -10,7 +10,7 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-            currentProduct: 98,
+            currentProduct: 1,
             recommendedID: [],
             recommendedPrices: [129.95, 14.99, 7.08, 16.82, 12.26],
             recommendedNames: [],
@@ -30,18 +30,12 @@ class App extends React.Component {
 
     clickLeft () {
         console.log("click-left!");
-        // let newCount = this.state.count--;
-        // this.setState({
-        //     count: newCount
-        // });
+        this.findRecommendedLeft();
     }
 
     clickRight() {
         console.log("click-right!");
-        // let newCount = this.state.count++;
-        // this.setState({
-        //     count: newCount
-        // });
+        this.findRecommendedRight();
     }
 
     clickImage(event) {
@@ -67,9 +61,7 @@ class App extends React.Component {
             let length = newList.length;
             for (let j = 1; j <= (5 - length); j++) {
                 newList.push(j);
-                console.log(newList);
             }
-            console.log(newList);
         } else {
             for (let i = start + 1; i < this.state.allIDs.length; i++) {
                 newList.push(i);
@@ -84,21 +76,67 @@ class App extends React.Component {
         });
     }
 
-    findRecommendedRight() {
-        // let newList = [];
-        // let currentList = this.state.recommendedNames;
-        // let start = this.state.recommendedID[0];
-        // let end = this.state.recommendedID[4];
-        // if (this.state.currentProduct > 95) {
-            
-        // } else {
-        //     newList = this.state.allIDs.slice(start, end);
-        // }
+    findRecommendedLeft() {
+        let newList = [];
+        let start = this.state.recommendedID[0];
+        // 3 -> [100, 1, 2, 3, 4]
+        if (start < 6) {
+            for (let i = 1; i < start; i++) {
+                if (i !== this.state.currentProduct) {
+                    newList.push(i);
+                }
+                let length = newList.length;
+                // ! need to use unshift!
+                for (let j = 101 - start; j <= 100; j++) {
+                    if (j !== this.state.currentProduct) {
+                        newList.unshift(j);
+                    }
+                }
+            }
+        } else {
+            for (let k = (start - 5); k < start; k++) {
+                if (k !== this.state.currentProduct) {
+                    newList.push(k);
+                }
+            }
+        }
 
-        // this.setState({
-        //     recommendedID: newList
-        // });
-        
+        this.setState({
+            recommendedID: newList
+        });
+
+        console.log(this.state.recommendedID);
+    }
+
+    findRecommendedRight() {
+        let newList = [];
+        let start = this.state.recommendedID[0];
+        let end = this.state.recommendedID[4];
+        if (end > 96) {
+            for (let i = end + 1; i < 101; i++) {
+                if (i !== this.state.currentProduct) {
+                    newList.push(i);
+                }
+            }
+            let length = newList.length;
+            for (let j = 1; j <= (5 - length); j++) {
+                if (j !== this.state.currentProduct) {
+                    newList.push(j);
+                }
+            }
+        } else {
+            for (let k = (end + 1); k < (end + 6); k++) {
+                if (k !== this.state.currentProduct) {
+                    newList.push(k);
+                }
+            }
+        }
+
+        this.setState({
+            recommendedID: newList
+        });
+
+        console.log(this.state.recommendedID);
     }
     
     // if left button is clicked, find 5 ids on the left of the very first id on the current list
