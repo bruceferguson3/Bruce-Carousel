@@ -3,13 +3,12 @@ import axios from "axios";
 import Images from "./Images.jsx";
 import ButtonLeft from "./ButtonLeft.jsx";
 import ButtonRight from "./ButtonRight.jsx";
-import Helper from "./Helper.jsx";
 
 class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-            currentProduct: 55,
+            currentProduct: 1,
             recommendedID: [],
             recommendedPrices: [],
             recommendedNames: [],
@@ -20,6 +19,7 @@ class App extends React.Component {
         this.clickImage = this.clickImage.bind(this);
         this.findRecommendedRight = this.findRecommendedRight.bind(this);
         this.recommended = this.recommended.bind(this);
+        this.getRecommendedData = this.getRecommendedData.bind(this);
     }
     
     componentDidMount() {
@@ -68,19 +68,21 @@ class App extends React.Component {
         console.log("initial recommendation", newList);
         this.setState({
             recommendedID: newList
+        }, () => {
+            this.getRecommendedData();
         });
     }
 
     // retrieves data of recommended items from database
     getRecommendedData() {
-        axios.get("/data", {
+        axios.post("/data", {
             recommendedID: this.state.recommendedID
         })
         .then(response => {
             console.log(response);
         })
         .catch(error => {
-            // throw error when finaizing product
+            // todo: throw error when finaizing product
             console.log(error);
         });
     }
@@ -121,7 +123,6 @@ class App extends React.Component {
             }
             console.log("L-checkpoint2", newList);
         } else {
-            // console.log("ran", newList);
             for (let k = start - 1; k >= start - 5; k--) {
                 if (k !== currentProduct) {
                     newList.unshift(k);
