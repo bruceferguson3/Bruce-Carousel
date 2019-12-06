@@ -80,3 +80,23 @@ h1 {
     font-family: "Amazon-Ember";
     font-size: 20px;
 }
+
+a:link {
+  color: #146EB4;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0066c0;
+}
+
+/* mouse over link */
+a:hover {
+  color: #C45500;
+  text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}

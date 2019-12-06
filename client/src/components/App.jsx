@@ -189,6 +189,8 @@ class App extends React.Component {
         }
         this.setState({
             recommendedID: newList
+        }, () => {
+            this.getData();
         });
     }
 
@@ -222,6 +224,8 @@ class App extends React.Component {
 
         this.setState({
             recommendedID: newList
+        }, () => {
+            this.getData();
         });
     }
 
