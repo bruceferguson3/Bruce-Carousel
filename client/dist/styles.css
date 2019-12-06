@@ -18,6 +18,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     overflow: hidden;
+    border: 0px
 }
 
 .buttons {
@@ -39,42 +40,43 @@
     display: flex;
     justify-content: space-around;
     font-family: "Amazon-Ember";
+    font-size: 12px;
 }
 
-/* #buttonLeft {
+.names {
     display: flex;
-    flex-direction: row;
-    text-align: left;
-    height: 200%;
+    justify-content: space-around;
+    font-family: "Amazon-Ember";
+    font-size: 12px;
+    /* box-sizing: border-box; */
+    /* word-wrap: break-word; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+    /* overflow: auto; */
 }
-
-#buttonRight {
-    display: flex;
-    flex-direction: row;
-    text-align: left;
-    height: 200%;
-} */
 
 .image {
     width: 120px;
     height: 120px;
-    padding: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.price {
+    display: flex;
+    align-content: flex-start;
+}
+
+.name {
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    word-break: break-all;
+    /* word-wrap: break-word;
+    overflow: hidden; */
 }
 
 h1 {
     font-family: "Amazon-Ember";
     font-size: 20px;
 }
-
-/* #button-left {
-}
-
-#button-right {
-} */
-
-/* overflow: hidden;
-    flex-flow: row;
-    align-content: space-between;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px; */

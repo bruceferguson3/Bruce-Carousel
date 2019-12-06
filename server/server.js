@@ -9,9 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/data", (req, res) => {
-    Promise.all(req.body.recommendedID.map((id) => {
-        return db.getPrice(id);
-    }))
+    return db.getData()
     .then(result => {
         res.send(result);
     })

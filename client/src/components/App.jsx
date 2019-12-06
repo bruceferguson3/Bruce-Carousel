@@ -12,6 +12,7 @@ class App extends React.Component {
             recommendedID: [],
             recommendedPrices: [],
             recommendedNames: [],
+            allData: [],
             allIDs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
         };
         this.clickLeft = this.clickLeft.bind(this);
@@ -19,7 +20,10 @@ class App extends React.Component {
         this.clickImage = this.clickImage.bind(this);
         this.findRecommendedRight = this.findRecommendedRight.bind(this);
         this.recommended = this.recommended.bind(this);
-        this.getRecommendedData = this.getRecommendedData.bind(this);
+        this.getData = this.getData.bind(this);
+        this.parseData1 = this.parseData1.bind(this);
+        this.parseData2 = this.parseData2.bind(this);
+        // this.parseDataHelper = this.parseDataHelper.bind(this);
     }
     
     componentDidMount() {
@@ -34,10 +38,6 @@ class App extends React.Component {
     clickRight() {
         console.log("click-right!");
         this.findRecommendedRight();
-    }
-
-    clickImage(event) {
-        console.log(event.target.id);
     }
 
     // determines 5 recommended product IDs
@@ -69,17 +69,68 @@ class App extends React.Component {
         this.setState({
             recommendedID: newList
         }, () => {
-            this.getRecommendedData();
+            this.getData();
         });
     }
 
+    parseData1(resultArray, refArray, category) {
+        console.log(resultArray[0][category]);
+        let resultObj = {};
+        for (let i = 0; i < refArray.length; i++) {
+            let index = refArray[i] - 1;
+            resultObj[refArray[i]] = resultArray[index][category];
+        }
+        return resultObj;
+    }
+
+    parseData2(obj) {
+        let array = this.state.recommendedID;
+        let elements = [];
+        for (let i = 0; i < array.length; i++) {
+            elements.push(obj[array[i]]);
+        }
+        return elements;
+    }
+
     // retrieves data of recommended items from database
-    getRecommendedData() {
+    getData() {
         axios.post("/data", {
             recommendedID: this.state.recommendedID
         })
         .then(response => {
-            console.log(response);
+            console.log(response.data);
+            this.setState({
+                allData: response.data
+            });
+            // setState productNames
+            return this.parseData1(response.data, this.state.recommendedID, "productName");
+        })
+        .then(result => {
+            console.log("results", result);
+            return this.parseData2(result);
+        })
+        .then(result => {
+            this.setState({
+                recommendedNames: result
+            })
+        })
+        .then(() => {
+            console.log(this.state.recommendedNames);
+        })
+        .then(()=> {
+            return this.parseData1(this.state.allData, this.state.recommendedID, "productPrice");
+        })
+        .then(result => {
+            console.log("results", result);
+            return this.parseData2(result);
+        })
+        .then(result => {
+            this.setState({
+                recommendedPrices: result
+            })
+        })
+        .then(() => {
+            console.log(this.state.recommendedPrices);
         })
         .catch(error => {
             // todo: throw error when finaizing product
@@ -173,11 +224,10 @@ class App extends React.Component {
             recommendedID: newList
         });
     }
-    
-    // if left button is clicked, find 5 ids on the left of the very first id on the current list
-    // if right button is clicked, find 5 ids on the right of the bery last id on the current list
-    // you could use an array that contains all the ids
-    // or you could just use math
+
+    clickImage(event) {
+        console.log(event.target.id);
+    }
 
 	render() {
 		return( 
@@ -185,10 +235,15 @@ class App extends React.Component {
                 <h1 className='header'>Customers who bought this item also bought</h1>
                 <div className='frame'>
                     <ButtonLeft clickLeft={this.clickLeft} />
-                    <Images currentProduct={this.state.currentProduct} recommendedID={this.state.recommendedID} recommendedNames={this.state.recommendedNames} clickImage={this.clickImage} recommendedID={this.state.recommendedID} recommendedPrices={this.state.recommendedPrices} />
+                    <Images 
+                        clickImage={this.clickImage} 
+                        currentProduct={this.state.currentProduct} 
+                        recommendedID={this.state.recommendedID} 
+                        recommendedNames={this.state.recommendedNames} 
+                        recommendedPrices={this.state.recommendedPrices} 
+                    />
                     <ButtonRight clickRight={this.clickRight} />    
                 </div>
-                {/* <Prices recommendedID={this.state.recommendedID} recommendedPrices={this.state.recommendedPrices} /> */}
             </div>
         );
 	}

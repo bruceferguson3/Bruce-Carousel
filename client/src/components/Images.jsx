@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from './Image.jsx';
 import Prices from './Prices.jsx';
+import Names from './Names.jsx';
 
 
 const Images = (props) => {
@@ -19,6 +20,7 @@ const Images = (props) => {
                     )}
             {/* Add reviews/ratings component here */}
             <Prices recommendedID={props.recommendedID} recommendedPrices={props.recommendedPrices} />
+            <Names recommendedID={props.recommendedID} recommendedNames={props.recommendedNames} />
         </div>    
     );
 }

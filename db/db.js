@@ -12,9 +12,9 @@ con.connect(() => {
     console.log(`Connected to database!`);
 });
 
-const getPrice = (id) => {
+const getData = () => {
     return new Promise ((resolve, reject) => {
-        con.query(`SELECT productPrice FROM products WHERE id = ${id};`, 
+        con.query(`SELECT * FROM products`, 
         (error, result, field) => {
             if (error) {
                 reject(error);
@@ -25,4 +25,17 @@ const getPrice = (id) => {
     });
 }
 
-module.exports = { getPrice };
+const getName = (id) => {
+    return new Promise((resolve, reject) => {
+        con.query(`SELECT productName FROM products WHERE id = ${id};`,
+            (error, result, field) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = { getName, getData };
