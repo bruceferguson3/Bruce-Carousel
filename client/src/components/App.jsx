@@ -12,12 +12,10 @@ class App extends React.Component {
             recommendedID: [],
             recommendedPrices: [],
             recommendedNames: [],
-            allData: [],
-            allIDs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
+            allData: []
         };
         this.clickLeft = this.clickLeft.bind(this);
         this.clickRight = this.clickRight.bind(this);
-        this.clickImage = this.clickImage.bind(this);
         this.findRecommendedRight = this.findRecommendedRight.bind(this);
         this.recommended = this.recommended.bind(this);
         this.getData = this.getData.bind(this);
@@ -31,12 +29,10 @@ class App extends React.Component {
     }
 
     clickLeft () {
-        console.log("click-left!");
         this.findRecommendedLeft();
     }
 
     clickRight() {
-        console.log("click-right!");
         this.findRecommendedRight();
     }
 
@@ -65,7 +61,6 @@ class App extends React.Component {
                 newList.push(k);
             }
         }
-        console.log("initial recommendation", newList);
         this.setState({
             recommendedID: newList
         }, () => {
@@ -74,7 +69,6 @@ class App extends React.Component {
     }
 
     parseData1(resultArray, refArray, category) {
-        console.log(resultArray[0][category]);
         let resultObj = {};
         for (let i = 0; i < refArray.length; i++) {
             let index = refArray[i] - 1;
@@ -98,7 +92,6 @@ class App extends React.Component {
             recommendedID: this.state.recommendedID
         })
         .then(response => {
-            console.log(response.data);
             this.setState({
                 allData: response.data
             });
@@ -106,7 +99,6 @@ class App extends React.Component {
             return this.parseData1(response.data, this.state.recommendedID, "productName");
         })
         .then(result => {
-            console.log("results", result);
             return this.parseData2(result);
         })
         .then(result => {
@@ -115,13 +107,11 @@ class App extends React.Component {
             })
         })
         .then(() => {
-            console.log(this.state.recommendedNames);
         })
         .then(()=> {
             return this.parseData1(this.state.allData, this.state.recommendedID, "productPrice");
         })
         .then(result => {
-            console.log("results", result);
             return this.parseData2(result);
         })
         .then(result => {
@@ -130,15 +120,14 @@ class App extends React.Component {
             })
         })
         .then(() => {
-            console.log(this.state.recommendedPrices);
         })
         .catch(error => {
             // todo: throw error when finaizing product
-            console.log(error);
+            throw(error);
         });
     }
 
-        // determines previous 5 recommended product IDs from current product
+    // determines previous 5 recommended product IDs from current product
     findRecommendedLeft() {
         let currentProduct = this.state.currentProduct;
         let newList = [];
@@ -157,7 +146,6 @@ class App extends React.Component {
                     }
                 }
             }
-            console.log("L-checkpoint1", newList);
         } else if (start > 95) {
             for (let i = start - 5; i < start; i++) {
                 if (i !== currentProduct) {
@@ -172,7 +160,6 @@ class App extends React.Component {
                     }
                 }
             }
-            console.log("L-checkpoint2", newList);
         } else {
             for (let k = start - 1; k >= start - 5; k--) {
                 if (k !== currentProduct) {
@@ -185,7 +172,6 @@ class App extends React.Component {
                     newList.unshift(m);
                 }
             }
-            console.log("L-checkpoint3", newList);
         }
         this.setState({
             recommendedID: newList
@@ -212,14 +198,12 @@ class App extends React.Component {
                     newList.push(j);
                 }
             }
-            console.log("R-checkpoint1", newList);
         } else {
             for (let k = (end + 1); newList.length < 5; k++) {
                 if (k !== currentProduct) {
                     newList.push(k);
                 }
             }
-            console.log("R-checkpoint2", newList);
         }
 
         this.setState({
@@ -227,10 +211,6 @@ class App extends React.Component {
         }, () => {
             this.getData();
         });
-    }
-
-    clickImage(event) {
-        console.log(event.target.id);
     }
 
 	render() {

@@ -34,6 +34,7 @@
     text-decoration-color: #A9A9A9;
     line-height: 1em;
     text-align: center;
+    cursor: pointer;
 }
 
 .prices {
@@ -60,11 +61,13 @@
     height: 120px;
     padding-left: 30px;
     padding-right: 30px;
+    cursor: pointer;
 }
 
 .price {
     display: flex;
     align-content: flex-start;
+    cursor: pointer;
 }
 
 .name {
@@ -79,6 +82,10 @@
 h1 {
     font-family: "Amazon-Ember";
     font-size: 20px;
+}
+
+a {
+    cursor: pointer;
 }
 
 a:link {
