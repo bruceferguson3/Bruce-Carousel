@@ -2,9 +2,10 @@ var mysql = require("mysql");
 let config = require("./config");
 
 const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
+    host: "gammazon.c9ljtzalkrkv.us-east-2.rds.amazonaws.com",
+    user: "admin",
     password: config.TOKEN.pw,
+    port: 3306,
     database: "gammazon"
 });
 
