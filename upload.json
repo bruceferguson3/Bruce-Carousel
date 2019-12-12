@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-        "Name": "benjaminhong/gammazon-carousel:test3"
+        "Name": "benjaminhong/gammazon:carousel1"
     },
     "Ports": [
         {"ContainerPort": "4000"}
