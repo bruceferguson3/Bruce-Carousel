@@ -4,6 +4,12 @@
     font-weight: bold;
 }
 
+.header {
+    font-family: "Amazon-Ember";
+    font-size: 20px;
+    color: #C45500;
+}
+
 .frame {
     display: flex;
     margin-block-start: 1em;
@@ -77,11 +83,6 @@
     word-break: break-all;
     /* word-wrap: break-word;
     overflow: hidden; */
-}
-
-.header h1 {
-    font-family: "Amazon-Ember";
-    font-size: 20px;
 }
 
 .name a {
