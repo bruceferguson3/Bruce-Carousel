@@ -21,7 +21,7 @@ class App extends React.Component {
         this.getData = this.getData.bind(this);
         this.parseData1 = this.parseData1.bind(this);
         this.parseData2 = this.parseData2.bind(this);
-        // this.parseDataHelper = this.parseDataHelper.bind(this);
+        this.clickRecommended = this.clickRecommended.bind(this);
     }
     
     componentDidMount() {
@@ -122,7 +122,6 @@ class App extends React.Component {
         .then(() => {
         })
         .catch(error => {
-            // todo: throw error when finaizing product
             throw(error);
         });
     }
@@ -166,7 +165,6 @@ class App extends React.Component {
                     newList.unshift(k);
                 }
             }
-            let length = newList.length;
             for (let m = start - 6; newList.length < 5; m--) {
                 if (m !== currentProduct) {
                     newList.unshift(m);
@@ -184,7 +182,6 @@ class App extends React.Component {
     findRecommendedRight() {
         let currentProduct = this.state.currentProduct;
         let newList = [];
-        let start = this.state.recommendedID[0];
         let end = this.state.recommendedID[4];
         if (end > 95) {
             for (let i = end + 1; i < 101; i++) {
@@ -192,7 +189,6 @@ class App extends React.Component {
                     newList.push(i);
                 }
             }
-            let length = newList.length;
             for (let j = 1; newList.length < 5; j++) {
                 if (j !== currentProduct) {
                     newList.push(j);
@@ -213,6 +209,11 @@ class App extends React.Component {
         });
     }
 
+    // gets productID of recommended product
+    clickRecommended(e) {
+        console.log(e.target.dataset.productid);
+    }
+
 	render() {
 		return( 
             <div>
@@ -220,12 +221,12 @@ class App extends React.Component {
                 <div className='frame'>
                     <ButtonLeft clickLeft={this.clickLeft} />
                     <Images 
-                        clickImage={this.clickImage} 
                         currentProduct={this.state.currentProduct} 
                         recommendedID={this.state.recommendedID} 
                         recommendedNames={this.state.recommendedNames} 
                         recommendedPrices={this.state.recommendedPrices} 
-                    />
+                        clickRecommended={this.clickRecommended} 
+                        />
                     <ButtonRight clickRight={this.clickRight} />    
                 </div>
             </div>

@@ -6,7 +6,13 @@ const Prices = (props) => {
         <div>
             <div className="prices">
                 {props.recommendedPrices.map((price, index) => {
-                    return <Price price={price} index={index} recommendedID={props.recommendedID} />
+                    return (
+                    <Price 
+                    price={price} 
+                    index={index} 
+                    recommendedProductID={props.recommendedID[index]} 
+                    clickRecommended={props.clickRecommended} 
+                    />);
                 })}
             </div>
         </div>
