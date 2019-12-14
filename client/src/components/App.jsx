@@ -26,10 +26,27 @@ class App extends React.Component {
         this.parseData1 = this.parseData1.bind(this);
         this.parseData2 = this.parseData2.bind(this);
         this.clickRecommended = this.clickRecommended.bind(this);
-    }
+        this.defaultState = this.defaultState.bind(this);
+        // this.getId = this.getId.bind(this);
+    }    
     
     componentDidMount() {
-        this.recommended();
+        let idText = window.location.search;
+        if (idText) {
+            let croppedId = idText.substring((idText.indexOf('=') + 1));
+            croppedId = Number(croppedId);
+            this.defaultState(croppedId);
+        } else {
+            this.defaultState();
+        }
+    }
+
+    defaultState(id = 1) {
+        this.setState({
+            currentProduct: id
+        }, () => {
+            this.recommended();
+        });
     }
 
     clickLeft () {
@@ -331,14 +348,32 @@ class App extends React.Component {
 
     // gets productID of recommended product
     clickRecommended(e) {
-        console.log(e.target.dataset.productid)
-        // let currentProduct = e.target.dataset.productid;
+        console.log(e.target.dataset.productid);
+        let id = Number(e.target.dataset.productid);
+        console.log(id);
+        this.setState({
+            currentProduct: id
+        }, () => {
+            window.location.replace(`http://benproxy.us-east-2.elasticbeanstalk.com/?id=${id}`);
+        });
+
+        // console.log(e.target.dataset.productid);
+        // let id = Number(e.target.dataset.productid);
+        // console.log(id);
         // this.setState({
-        //     currentProduct: currentProduct
+        //     currentProduct: id
         // }, () => {
-        //     this.recommended();
+        //     this.findRecommendedRight8();
         // });
     }
+
+    // getId() {
+    //     let idText = window.location.search;
+    //     console.log(window.location.search);
+    //     let croppedId = idText.substring((idText.indexOf('=') + 1));
+    //     croppedId = Number(croppedId);
+    //     this.defaultState(croppedId);
+    // }
 
 	render() {
 		return( 
