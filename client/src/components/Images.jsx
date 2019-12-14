@@ -2,6 +2,7 @@ import React from 'react';
 import Image from './Image.jsx';
 import Prices from './Prices.jsx';
 import Names from './Names.jsx';
+import Ratings from './Ratings.jsx';
 
 
 const Images = (props) => {
@@ -15,7 +16,8 @@ const Images = (props) => {
         <div className='images'>
             {array.map((image, index) => {
                 return (
-                    <Image image={image} 
+                    <Image 
+                    image={image} 
                     index={index} 
                     clickImage={props.clickImage} 
                     recommendedProductID={props.recommendedID[index]}
@@ -29,6 +31,14 @@ const Images = (props) => {
             recommendedPrices={props.recommendedPrices}
             clickRecommended={props.clickRecommended} 
             />
+
+            <div className="ratings-container">
+                {props.recommendedRatings.map((item, index) => {
+                    return (
+                        <Ratings rating={item} index={index} />
+                    )}
+                )}
+            </div>
 
             <Names 
             recommendedID={props.recommendedID} 

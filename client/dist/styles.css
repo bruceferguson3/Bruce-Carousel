@@ -12,24 +12,17 @@
 
 .frame {
     display: flex;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
 }
 
 .image-frame {
     display: inline-block;
-    flex-direction: row;
-    flex-wrap: wrap;
     overflow: hidden;
     border: 0px
 }
 
 .buttons {
     display: flex;
-    align-self: center;
+    align-self: flex-end;
     font-family: "Amazon-Ember";
     background: #e7e9ec;
     border-radius: 3px;
@@ -41,6 +34,11 @@
     line-height: 1em;
     text-align: center;
     cursor: pointer;
+}
+
+.ratings-container {
+    display: flex;
+    justify-content: space-around;
 }
 
 .prices {
@@ -72,25 +70,31 @@
 
 .price {
     display: flex;
-    align-content: flex-start;
-    cursor: pointer;
+    text-align: left;
 }
 
 .name {
     width: 120px;
     height: 120px;
-    padding: 10px;
+    /* one value = all 4 sides */
+    /* 2 values = t/b, l/r */
+    /* 3 values = l, t/b, r */
+    /* 4 values = clockwise */
+    /* same for margins */
+    padding: 0 10px;
     word-break: break-all;
     /* word-wrap: break-word;
     overflow: hidden; */
 }
 
 .name a {
+    color: #0066c0;
+    text-overflow: ellipsis;
     cursor: pointer;
 }
 
 .name a:link {
-  color: #146EB4;
+  color: #0066c0;
   text-decoration: none;
 }
 
@@ -106,6 +110,13 @@
 
 .price a {
     cursor: pointer;
+    color: #0066c0;
+}
+
+.price #logo {
+    height: 17px;
+    width: 50px;
+    margin-left: 8px;
 }
 
 .price a:link {
@@ -123,13 +134,8 @@
   text-decoration: underline;
 }
 
-.price #logo {
-    height: 17px;
-    width: 50px;
-    margin-left: 8px;
-}
-
-/* selected link */
-/* .price a:active {
+/* 
+selected link
+.price a:active {
   color: blue;
 } */
