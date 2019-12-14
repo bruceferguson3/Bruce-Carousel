@@ -15,7 +15,7 @@ const Image = (props) => {
                 src={props.image} 
                 key={props.index} 
                 className="image" 
-                id={`product${props.recommendedProductID}`}
+                // id={`product${props.recommendedProductID}`}
                 data-productid={props.recommendedProductID} 
                 >
                 </img>

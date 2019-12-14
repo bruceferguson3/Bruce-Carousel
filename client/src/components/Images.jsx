@@ -7,7 +7,7 @@ import Names from './Names.jsx';
 const Images = (props) => {
     let array = [];
     // push img url into array
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 8; i++) {
         array.push(`https://gammazon.s3.us-east-2.amazonaws.com/Gammazon/${props.recommendedID[i]}/${props.recommendedID[i]}-1.jpg`
 );
     }

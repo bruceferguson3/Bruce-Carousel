@@ -14,10 +14,14 @@ class App extends React.Component {
             recommendedNames: [],
             allData: []
         };
+        
         this.clickLeft = this.clickLeft.bind(this);
         this.clickRight = this.clickRight.bind(this);
+        this.findRecommendedLeft = this.findRecommendedLeft.bind(this);
         this.findRecommendedRight = this.findRecommendedRight.bind(this);
         this.recommended = this.recommended.bind(this);
+        this.next5 = this.next5.bind(this);
+        this.next8 = this.next8.bind(this);
         this.getData = this.getData.bind(this);
         this.parseData1 = this.parseData1.bind(this);
         this.parseData2 = this.parseData2.bind(this);
@@ -29,15 +33,17 @@ class App extends React.Component {
     }
 
     clickLeft () {
-        this.findRecommendedLeft();
+        // this.findRecommendedLeft();
+        this.findRecommendedLeft8();
     }
 
     clickRight() {
-        this.findRecommendedRight();
+        // this.findRecommendedRight();
+        this.findRecommendedRight8();
     }
 
-    // determines 5 recommended product IDs
-    recommended() {
+    // grabs next 5 products based on currentProductID
+    next5() {
         let newList = [];
         let start = this.state.currentProduct;
         if (start < 6) {
@@ -61,6 +67,41 @@ class App extends React.Component {
                 newList.push(k);
             }
         }
+        return newList;
+    }
+
+    // grabs next 8 products based on currentProductID
+    next8() {
+        let newList = [];
+        let start = this.state.currentProduct;
+        if (start < 9) {
+            for (let i = 1; i < 101; i++) {
+                if (i !== start) {
+                    newList.push(i);
+                }
+                if (newList.length === 8) {
+                    break;
+                }
+            }
+        } else if (start > 93) {
+            for (let i = start + 1; i < 101; i++) {
+                newList.push(i);
+            }
+            for (let j = 1; newList.length < 8; j++) {
+                newList.push(j);
+            }
+        } else {
+            for (let k = start + 1; newList.length < 8; k++) {
+                newList.push(k);
+            }
+        }
+        return newList;
+    }
+
+    
+    recommended() {
+    // let newList = this.next5();
+    let newList = this.next8();
         this.setState({
             recommendedID: newList
         }, () => {
@@ -88,7 +129,7 @@ class App extends React.Component {
 
     // retrieves data of recommended items from database
     getData() {
-        axios.post("/data", {
+        axios.post("http://carousel.us-east-2.elasticbeanstalk.com/data", {
             recommendedID: this.state.recommendedID
         })
         .then(response => {
@@ -106,8 +147,6 @@ class App extends React.Component {
                 recommendedNames: result
             })
         })
-        .then(() => {
-        })
         .then(()=> {
             return this.parseData1(this.state.allData, this.state.recommendedID, "productPrice");
         })
@@ -116,13 +155,11 @@ class App extends React.Component {
         })
         .then(result => {
             this.setState({
-                recommendedPrices: result
-            })
-        })
-        .then(() => {
+                recommendedPrices: result  
+            });
         })
         .catch(error => {
-            throw(error);
+            console.log(error);
         });
     }
 
@@ -209,9 +246,98 @@ class App extends React.Component {
         });
     }
 
+    // determines previous 8 recommended product IDs from current product
+    findRecommendedLeft8() {
+        let currentProduct = this.state.currentProduct;
+        let newList = [];
+        let start = this.state.recommendedID[0];
+        if (start < 9) {
+            for (let i = 1; i < start; i++) {
+                if (i !== currentProduct) {
+                    newList.push(i);
+                }
+            }
+            let length = newList.length;
+            if (length < 8) {
+                for (let j = 100; j >= 100 - (8 - length); j--) {
+                    if (j !== currentProduct) {
+                        newList.unshift(j);
+                    }
+                }
+            }
+        } else if (start > 92) {
+            for (let i = start - 8; i < start; i++) {
+                if (i !== currentProduct) {
+                    newList.push(i);
+                }
+            }
+            let length = newList.length;
+            if (length < 8) {
+                for (let j = start - (8 + (8 - length)); newList.length < 8; j++) {
+                    if (j !== currentProduct) {
+                        newList.unshift(j);
+                    }
+                }
+            }
+        } else {
+            for (let k = start - 1; k >= start - 8; k--) {
+                if (k !== currentProduct) {
+                    newList.unshift(k);
+                }
+            }
+            for (let m = start - 9; newList.length < 8; m--) {
+                if (m !== currentProduct) {
+                    newList.unshift(m);
+                }
+            }
+        }
+        this.setState({
+            recommendedID: newList
+        }, () => {
+            this.getData();
+        });
+    }
+
+    // determines next 8 recommended product IDs from current product
+    findRecommendedRight8() {
+        let currentProduct = this.state.currentProduct;
+        let newList = [];
+        let end = this.state.recommendedID[7];
+        if (end > 92) {
+            for (let i = end + 1; i < 101; i++) {
+                if (i !== currentProduct) {
+                    newList.push(i);
+                }
+            }
+            for (let j = 1; newList.length < 8; j++) {
+                if (j !== currentProduct) {
+                    newList.push(j);
+                }
+            }
+        } else {
+            for (let k = (end + 1); newList.length < 8; k++) {
+                if (k !== currentProduct) {
+                    newList.push(k);
+                }
+            }
+        }
+
+        this.setState({
+            recommendedID: newList
+        }, () => {
+            this.getData();
+        });
+    }
+
     // gets productID of recommended product
     clickRecommended(e) {
-        console.log(e.target.dataset.productid);
+        console.log(e.target.dataset.productid)
+        // let currentProduct = e.target.dataset.productid;
+        // this.setState({
+        //     currentProduct: currentProduct
+        // }, () => {
+        //     this.recommended();
+        // });
     }
 
 	render() {
