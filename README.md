@@ -1,2 +1,0 @@
-# Bruce-Carousel
-Carousel Component 
