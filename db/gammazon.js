@@ -1,13 +1,5 @@
-const { Pool } = require('pg');
+const pool = require('/db/postgres-config.js');
 const faker = require('faker');
-
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'gammazon',
-    password: '11Pows12Coke',
-    port: 4000,
-});
 
 let getOneProduct = (id) => {
     return new Promise ((resolve, reject) => {
@@ -37,7 +29,8 @@ let deleteOneProduct = (id) => {
 
 let createItem = () => {
     return new Promise ((resolve, reject) => {
-        pool.query(`INSERT INTO products () VALUES ()`,
+        pool.query(`INSERT INTO products(productName, productMaker, productDesc, productPrice, productRating, productNumOfRatings, productNumOfQuestionsAnswered) 
+        VALUES ('${ faker.commerce.productName() }', '${ faker.company.companyName().replace(/'/g, "") }', '${ faker.lorem.sentence() }', ${ faker.commerce.price() }, ${ faker.random.number().toFixed(1) }, ${ faker.random.number() }, ${ faker.random.number() })`,
             (error, result) => {
                 if (error) {
                     reject(error);
