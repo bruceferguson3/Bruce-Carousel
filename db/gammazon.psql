@@ -1,0 +1,18 @@
+DROP DATABASE IF EXISTS gammazon;
+
+CREATE DATABASE gammazon;
+
+USE DATABASE gammazon;
+
+
+
+CREATE TABLE products (
+    id serial PRIMARY KEY,
+    productName VARCHAR(7000),
+    productMaker VARCHAR (150),
+    productDesc VARCHAR (7000),
+    productPrice decimal(10, 2) NOT NULL,
+    productRating decimal(10, 2),
+    productNumOfRatings INT,
+    productNumOfQuestionsAnswered INT
+    );

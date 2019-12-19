@@ -5,10 +5,8 @@ USE gammazon;
 
 CREATE TABLE products
 (
-id int
-NOT NULL AUTO_INCREMENT,
-    productName VARCHAR
-    (7000),
+    id int NOT NULL AUTO_INCREMENT,
+    productName VARCHAR(7000),
     productMaker VARCHAR (150),
     productDesc VARCHAR (7000),
     productPrice decimal(10, 2) NOT NULL,

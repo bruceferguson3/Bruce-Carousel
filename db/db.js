@@ -1,3 +1,6 @@
+//ONLY USE WITH A MYSQL CONNECTION
+
+
 var mysql = require("mysql");
 let config = require("./config");
 
