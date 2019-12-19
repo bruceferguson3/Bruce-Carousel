@@ -36,7 +36,7 @@ const getData = () => {
             }
         });
     });
-}
+};
 
 const getName = (id) => {
     return new Promise((resolve, reject) => {
@@ -49,6 +49,6 @@ const getName = (id) => {
             }
         });
     });
-}
+};
 
 module.exports = { getName, getData };
