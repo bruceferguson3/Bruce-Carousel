@@ -27,7 +27,7 @@ let m_insertOneProduct = () => {
         .then(() => {
             const db = client.db('gammazon');
             const collection = db.collection('products');
-            return collection.insertOne({_id : 3, "productName" : faker.commerce.productName(), "productMaker" : faker.company.companyName().replace(/'/g, ""),
+            return collection.insertOne({_id : Math.floor(Math.random() * 10000000), "productName" : faker.commerce.productName(), "productMaker" : faker.company.companyName().replace(/'/g, ""),
                 "productDesc": faker.lorem.sentence(), "productPrice": faker.commerce.price(), "productRating": faker.random.number().toFixed(1),
                 "productNumOfRatings": faker.random.number(), "productNumOfQuestionsAnswered": faker.random.number() });
         })
@@ -59,7 +59,6 @@ let m_deleteOneProduct = (id) => {
         .catch((err) => console.log(`ERROR: ${err}`))
 };
 
-//m_insertOneProduct();
 
 module.exports = { m_getOneProduct, m_insertOneProduct, m_updateProduct, m_deleteOneProduct };
 

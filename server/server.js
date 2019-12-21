@@ -68,7 +68,6 @@ app.delete('/p_deleteProduct', (req, res) => {
 app.get('/m_getOneProduct', (req, res) => {
     return mongo.m_getOneProduct(1)
         .then(result => {
-            console.log(`Item Found. Here is the item... \n${JSON.stringify(result, undefined, 2)}`);
             res.send(result)
         })
         .catch((err) => {
@@ -98,7 +97,7 @@ app.put('/m_updateProduct', (req, res) => {
 });
 // Deletes an item from the mongo database
 app.delete('/m_deleteProduct', (req, res) => {
-    return mongo.m_deleteOneProduct(3)
+    return mongo.m_deleteOneProduct(1)
         .then(result => {
             res.send(result);
         })
