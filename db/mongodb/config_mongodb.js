@@ -4,6 +4,6 @@
 //
 // module.exports = connectionString;
 
-let mongodb_connection = 'mongodb://localhost:27017/gammazon';
+let databaseConnection = 'mongodb://localhost:27017';
 
-module.exports = mongodb_connection;
+module.exports = databaseConnection;
