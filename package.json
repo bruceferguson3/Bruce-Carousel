@@ -22,6 +22,8 @@
 		"cors": "^2.8.5",
 		"express": "^4.15.0",
 		"faker": "^4.1.0",
+		"loadtest": "^4.0.0",
+		"mongo-seeding": "^3.4.0-alpha.1",
 		"mongodb": "^3.3.5",
 		"mongoose": "^5.7.12",
 		"mysql": "^2.13.0",

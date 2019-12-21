@@ -1,4 +1,4 @@
-const pool = require('/db/postgres-config.js');
+const pool = require('./postgres-config.js');
 const faker = require('faker');
 
 let getOneProduct = (id) => {

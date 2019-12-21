@@ -4,6 +4,6 @@
         "Name": "benjaminhong/gammazon:carousel3"
     },
     "Ports": [
-        {"ContainerPort": "4000"}
+        {"ContainerPort": "4001"}
     ]
 }

@@ -3,7 +3,8 @@ const app = express();
 const path = require("path");
 const cors = require('cors');
 // const db = require('../db/db.js');
-const pg = require('/db/gammazon.js');
+const pg = require('../db/gammazon.js');
+const port = 4001;
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../client/dist")));
@@ -14,49 +15,49 @@ app.get("/styles", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/dist/styles.css"));
 });
 
-app.get('/getOneProduct', (req, res) => {
-    pg.getOneProduct(Math.floor(Math.random() * 10000000), (err, result) => {
-        if (err) {
-            res.send(err);
-        } else {
-            res.send(result)
-        }
-    })
+app.get('/p_getOneProduct', (req, res) => {
+    return pg.getOneProduct(Math.floor(Math.random() * 10000000))
+        .then(result => {
+            res.send(result);
+        })
+        .catch(error => {
+            res.send(error);
+        })
 });
 
-app.post('/createItem', (req, res) => {
-    pg.createItem((err, result) => {
-        if (err) {
-            res.send(err)
-        } else {
-            res.send(result)
-        }
-    })
+app.post('/p_createItem', (req, res) => {
+    return pg.createItem()
+        .then(result => {
+            res.send(result);
+        })
+        .catch(error => {
+            res.send(error);
+        })
 });
 
-app.put('/updateProduct', (req, res) => {
-    pg.updateProduct(req.body.newProductInfo, (err, result) => {
-        if (err) {
-            res.send(err)
-        } else {
-            res.send(result)
-        }
-    })
+app.put('/p_updateProduct', (req, res) => {
+    return pg.updateProduct(Math.floor(Math.random() * 10000000))
+        .then(result => {
+            res.send(result);
+        })
+        .catch(error => {
+            res.send(error);
+        })
 });
 
-app.delete('/deleteProduct', (req, res) => {
-    pg.deleteOneProduct(req.body.productId, (err, result) => {
-        if (err) {
-            res.send(err)
-        } else {
-            res.send(result)
-        }
-    })
+app.delete('/p_deleteProduct', (req, res) => {
+    return pg.deleteOneProduct(Math.floor(Math.random() * 10000000))
+        .then(result => {
+            res.send(result);
+        })
+        .catch(error => {
+            res.send(error);
+        })
 });
 
 
 //retrieves data from the database to render
-app.post("/data", (req, res) => {
+app.post("/p_data", (req, res) => {
     return pg.getData()
     .then(result => {
         res.send(result);
@@ -67,7 +68,7 @@ app.post("/data", (req, res) => {
 });
 
 
-const port = 4000;
-app.listen(4000, () => {
-	`Listening on port ${port}`;
+
+app.listen(port, () => {
+	console.log(`Listening on port ${port}`);
 });
