@@ -66,7 +66,7 @@ app.delete('/p_deleteProduct', (req, res) => {
 // ******************************************************************************************
 // Retrieves an item from the mongo database
 app.get('/m_getOneProduct', (req, res) => {
-    return mongo.m_getOneProduct(1)
+    return mongo.m_getOneProduct(Math.floor(Math.random() * 10000000))
         .then(result => {
             res.send(result)
         })
@@ -87,7 +87,7 @@ app.post('/m_createItem', (req, res) => {
 });
 // Updates an item from the mongo database
 app.put('/m_updateProduct', (req, res) => {
-    return mongo.m_updateProduct(1)
+    return mongo.m_updateProduct(Math.floor(Math.random() * 10000000))
         .then(result => {
             res.send(result);
         })
@@ -97,7 +97,7 @@ app.put('/m_updateProduct', (req, res) => {
 });
 // Deletes an item from the mongo database
 app.delete('/m_deleteProduct', (req, res) => {
-    return mongo.m_deleteOneProduct(1)
+    return mongo.m_deleteOneProduct(Math.floor(Math.random() * 10000000))
         .then(result => {
             res.send(result);
         })
