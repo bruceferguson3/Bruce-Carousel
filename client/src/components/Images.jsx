@@ -3,14 +3,15 @@ import Image from './Image.jsx';
 import Prices from './Prices.jsx';
 import Names from './Names.jsx';
 import Ratings from './Ratings.jsx';
+const faker = require('faker');
 
 
 const Images = (props) => {
     let array = [];
     // push img url into array
     for (let i = 0; i < 8; i++) {
-        array.push(`https://gammazon.s3.us-east-2.amazonaws.com/Gammazon/${props.recommendedID[i]}/${props.recommendedID[i]}-1.jpg`
-);
+        //array.push(`https://gammazon.s3.us-east-2.amazonaws.com/Gammazon/${props.recommendedID[i]}/${props.recommendedID[i]}-1.jpg`
+        array.push(faker.image.image());
     }
     return (
         <div className='images'>
